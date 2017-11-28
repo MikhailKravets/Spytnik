@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/MikhailKravets/DataFlow/master/logo.png"><br><br>
+  <img src="https://raw.githubusercontent.com/MikhailKravets/Spytnik/master/logo.png"><br><br>
 </div>
 
 Spytnik is the Python project that contains realization of deep learning algorithms.
