@@ -66,6 +66,14 @@ class FeedForward:
             l.y = l.a(l.v)
         return numpy.round(self.layers[-1].y, decimals=3)
 
+    def __add__(self, other: layers.Layer):
+        """
+        Append layer to `FeedForward` instance
+
+        :param other:
+        :return:
+        """
+
     def __repr__(self):
         s = ""
         for l in self.layers:
