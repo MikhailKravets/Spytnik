@@ -5,43 +5,36 @@ import numpy
 import math
 
 
-class Linear:
-    def __init__(self, length, prev_length=None):
+class Layer:
+    def __init__(self, length, output):
         self.v = numpy.zeros(shape=(length, 1))
         self.y = numpy.zeros(shape=(length, 1))
         self.delta = numpy.zeros(shape=(length, 1))
         self.prev_delta = numpy.zeros(shape=(length, 1))
 
-        if prev_length is None:
-            prev_length = length
+        self.w = 2*numpy.random.random(size=(length + 1, output)) - 1
 
-        self.w = numpy.random.uniform(-0.9, 0.9, size=(prev_length + 1, length))
+        # you need to define it by yourself
+        self.a = None
+        self.der = None
+
+
+class Linear(Layer):
+    def __init__(self, length, output):
+        super().__init__(length, output)
         self.a = lambda x: x
         self.der = lambda x: 1
 
 
-class Sigmoid:
-    def __init__(self, length, prev_length=None):
-        self.v = numpy.zeros(shape=(length, 1))
-        self.y = numpy.zeros(shape=(length, 1))
-        self.delta = numpy.zeros(shape=(length, 1))
-        self.prev_delta = numpy.zeros(shape=(length, 1))
-
-        if prev_length is None:
-            prev_length = length
-
-        self.w = numpy.random.uniform(-0.9, 0.9, size=(prev_length + 1, length))
+class Sigmoid(Layer):
+    def __init__(self, length, output):
+        super().__init__(length, output)
         self.a = lambda x: 1.0/(1.0 + numpy.exp(x))
         self.der = lambda x: self.a(x)*(1.0 - self.a(x))
 
 
-class Tanh:
-    def __init__(self, length, prev_length=None):
-        self.v = numpy.zeros(shape=(length, 1))
-        self.y = numpy.zeros(shape=(length, 1))
-        self.delta = numpy.zeros(shape=(length, 1))
-        self.prev_delta = numpy.zeros(shape=(length, 1))
-
-        self.w = numpy.random.uniform(-0.9, 0.9, size=(prev_length + 1, length))
+class Tanh(Layer):
+    def __init__(self, length, output):
+        super().__init__(length, output)
         self.a = lambda x: numpy.tanh(x)
         self.der = lambda x: 1.0 - self.a(x) ** 2
