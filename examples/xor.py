@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plot
-import layers
+import random
 
+import layers
 from nn import FeedForward
 
 
@@ -8,7 +9,7 @@ nn = FeedForward() # .create([2, 2, 1], default=layers.Tanh)
 
 nn += layers.Linear(2, 2)
 nn += layers.Tanh(2, 1)
-nn += layers.Relu(1, 0)
+nn += layers.Linear(1, 0)
 
 s = [
     ([0, 0], [0]),
@@ -20,7 +21,8 @@ s = [
 E = []
 
 for i in range(10_000):
-    nn.fit(*s[i % 4])
+    r = random.randint(0, len(s) - 1)
+    nn.fit(*s[r])
     E.append(nn.error)
 
 print(nn)
