@@ -44,7 +44,8 @@ class FeedForward:
             l = self.layers[i]
             if i > 0:
                 x = numpy.vstack(([1], l.y))
-            l.w += self.learn_rate * x.dot(self.layers[i + 1].delta.T)
+            l.velocity = self.momentum * l.velocity + self.learn_rate * x.dot(self.layers[i + 1].delta.T)
+            l.w += l.velocity
 
     def get(self, x):
         x_ = numpy.array(x).reshape(len(x), 1)

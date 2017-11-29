@@ -13,6 +13,7 @@ class Layer:
         self.prev_delta = numpy.zeros(shape=(length, 1))
 
         self.w = 2*numpy.random.random(size=(length + 1, output)) - 1
+        self.velocity = numpy.zeros(shape=(length + 1, output))
 
         # you need to define it by yourself
         self.a = None
