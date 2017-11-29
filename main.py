@@ -20,7 +20,7 @@ s = [
 
 E = []
 
-for i in range(10000):
+for i in range(10_000):
     nn.fit(*s[i % 4])
     E.append(nn.error)
 

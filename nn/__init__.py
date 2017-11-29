@@ -22,19 +22,23 @@ class FeedForward:
         self.layers.append(layers.Linear(architecture[-1], 0))
 
     def fit(self, x: list, d: list):
-        x_ = numpy.array(x).reshape(len(x), 1)
-        x_ = numpy.vstack(([1], x_))
+        x = numpy.array(x).reshape(len(x), 1)
+        x = numpy.vstack(([1], x))
         d = numpy.array(d).reshape(len(d), 1)
 
-        # Straight way
+        self._forward(x)
+        self._backprop(d)
+        self._sgd(x, d)
+
+    def _forward(self, x):
         for i in range(1, len(self.layers)):
             l, l_prev = self.layers[i], self.layers[i - 1]
             if i > 1:
-                x_ = numpy.vstack(([1], l_prev.y))
-            l.v = l_prev.w.T.dot(x_)
+                x = numpy.vstack(([1], l_prev.y))
+            l.v = l_prev.w.T.dot(x)
             l.y = l.a(l.v)
 
-        # Backprop
+    def _backprop(self, d):
         for i, l in reversed(list(enumerate(self.layers))):
             if i == len(self.layers) - 1:
                 l.delta = l.der(l.v) * (d - l.y)
@@ -42,18 +46,12 @@ class FeedForward:
             else:
                 l.delta = l.der(l.v) * (l.w[1:, :].dot(self.layers[i + 1].delta))
 
-        # SGD
+    def _sgd(self, x, d):
         for i in range(0, len(self.layers) - 1):
             l = self.layers[i]
-            if i == 0:
-                x_ = numpy.array(x).reshape(len(x), 1)
-                x_ = numpy.vstack(([1], x_))
-            else:
-                x_ = numpy.vstack(([1], l.y))
-            l.w += self.learn_rate * x_.dot(self.layers[i + 1].delta.T)
-
-    def train(self,):
-        pass
+            if i > 0:
+                x = numpy.vstack(([1], l.y))
+            l.w += self.learn_rate * x.dot(self.layers[i + 1].delta.T)
 
     def get(self, x):
         x_ = numpy.array(x).reshape(len(x), 1)
