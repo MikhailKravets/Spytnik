@@ -3,7 +3,7 @@ import layers
 
 
 class FeedForward:
-    def __init__(self, architecture, default=layers.Tanh):
+    def __init__(self, learn_rate=0.1, momentum=0.1):
         """
         Create new `FeedForward` NN instance. By default it will append Sigmoid layers
 
@@ -13,13 +13,6 @@ class FeedForward:
         self.learn_rate = 0.1
         self.momentum = 0.1
         self.error = 0
-
-        for i in range(0, len(architecture) - 1):
-            if i == 0:
-                self.layers.append(layers.Linear(architecture[0], architecture[1]))
-            else:
-                self.layers.append(default(architecture[i], architecture[i + 1]))
-        self.layers.append(layers.Linear(architecture[-1], 0))
 
     def fit(self, x: list, d: list):
         x = numpy.array(x).reshape(len(x), 1)
@@ -64,13 +57,25 @@ class FeedForward:
             l.y = l.a(l.v)
         return numpy.round(self.layers[-1].y, decimals=3)
 
-    def __add__(self, other: layers.Layer):
+    def create(self, architecture, default=layers.Tanh):
+        self.layers = []
+        for i in range(0, len(architecture) - 1):
+            if i == 0:
+                self.layers.append(layers.Linear(architecture[0], architecture[1]))
+            else:
+                self.layers.append(default(architecture[i], architecture[i + 1]))
+        self.layers.append(layers.Linear(architecture[-1], 0))
+        return self
+
+    def __add__(self, l: layers.Layer):
         """
         Append layer to `FeedForward` instance
 
-        :param other:
-        :return:
+        :param l: the layer to be added to neural network
+        :return: link on the current neural network
         """
+        self.layers.append(l)
+        return self
 
     def __repr__(self):
         s = ""

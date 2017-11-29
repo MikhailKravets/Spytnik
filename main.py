@@ -1,7 +1,3 @@
-"""
-TODO: use this file only to run the code.
-Move the NN classes to another package
-"""
 import numpy
 import matplotlib.pyplot as plot
 import layers
@@ -9,7 +5,7 @@ import layers
 from nn import FeedForward
 
 
-nn = FeedForward([2, 2, 1], default=layers.Tanh)
+nn = FeedForward().create([2, 2, 1], default=layers.Tanh)
 
 s = [
     ([0, 0], [0]),
