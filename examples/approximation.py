@@ -38,9 +38,11 @@ for v in x:
     y_trained.append(nn.get([v])[0])
 
 plot.subplot(211)
+plot.title("f(x) and its approximation")
 plot.plot(x, y)
 plot.plot(x, y_trained)
 
 plot.subplot(212)
+plot.title("Learning error")
 plot.plot(error)
 plot.show()

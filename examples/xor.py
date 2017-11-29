@@ -30,5 +30,6 @@ print(nn)
 for v in s:
     print(nn.get(v[0]), end='\n\n')
 
+plot.title("Learning error")
 plot.plot(E)
 plot.show()
