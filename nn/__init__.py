@@ -3,15 +3,16 @@ import layers
 
 
 class FeedForward:
-    def __init__(self, learn_rate=0.1, momentum=0.1):
+    def __init__(self, learn_rate=0.1, momentum=0.1, weight_decay=0.1):
         """
         Create new `FeedForward` NN instance. By default it will append Sigmoid layers
 
         :param architecture: list of neuron amounts in each layer
         """
         self.layers = []
-        self.learn_rate = 0.1
-        self.momentum = 0.1
+        self.learn_rate = learn_rate
+        self.momentum = momentum
+        self.weight_decay = weight_decay
         self.error = 0
 
     def fit(self, x: list, d: list):
@@ -45,6 +46,7 @@ class FeedForward:
             if i > 0:
                 x = numpy.vstack(([1], l.y))
             l.velocity = self.momentum * l.velocity + self.learn_rate * x.dot(self.layers[i + 1].delta.T)
+            l.velocity += -self.weight_decay * l.velocity
             l.w += l.velocity
 
     def get(self, x):

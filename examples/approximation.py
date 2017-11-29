@@ -11,7 +11,7 @@ def f(x):
     return 0.5 * numpy.sin(numpy.exp(x)) - numpy.cos(numpy.exp(-1 * x))
 
 
-nn = FeedForward(momentum=0.1, learn_rate=0.05)  # .create([2, 2, 1], default=layers.Tanh)
+nn = FeedForward(momentum=0.2, learn_rate=0.05, weight_decay=0.2)  # .create([2, 2, 1], default=layers.Tanh)
 
 nn += layers.Linear(1, 7)
 
