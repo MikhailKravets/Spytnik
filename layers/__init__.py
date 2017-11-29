@@ -38,3 +38,10 @@ class Tanh(Layer):
         super().__init__(length, output)
         self.a = lambda x: numpy.tanh(x)
         self.der = lambda x: 1.0 - self.a(x) ** 2
+
+
+class Relu(Layer):
+    def __init__(self, length, output):
+        super().__init__(length, output)
+        self.a = lambda x: max(0, x)
+        self.der = lambda x: 0 if x <= 0 else 1
