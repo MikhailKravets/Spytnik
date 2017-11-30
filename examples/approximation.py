@@ -4,7 +4,8 @@ import random
 import numpy
 
 import layers
-from core import FeedForward
+from core import FeedForward, separate_data
+from core.estimators import cv
 
 
 def f(x):
@@ -21,15 +22,22 @@ nn += layers.Tanh(10, 1)
 
 nn += layers.Linear(1, 0)
 
+data = [([x], [f(x)]) for x in numpy.linspace(-2.2, 2.5, 150)]
+ts, vs = separate_data(data, 0.15)
+
+
+# duplicate x and y for easy plotting
 x = numpy.linspace(-2.2, 2.5, 150)
 y = f(x)
 
 error = []
-
+v_error = []
 for i in range(50_000):
-    r = random.randint(0, len(x) - 1)
-    nn.fit([x[r]], [y[r]])
+    r = random.randint(0, len(ts) - 1)
+    nn.fit(ts[r][0], ts[r][1])
     error.append(nn.error)
+    if i % 300 == 0:
+        v_error.append(cv(nn, vs))
 
 print(nn)
 
@@ -45,4 +53,5 @@ plot.plot(x, y_trained)
 plot.subplot(212)
 plot.title("Learning error")
 plot.plot(error)
+plot.plot([i * 300 for i in range(len(v_error))], v_error)
 plot.show()
