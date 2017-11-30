@@ -7,11 +7,14 @@ import matplotlib.pyplot as plot
 import time
 
 import layers
-from core import FeedForward, from_csv, separate_data
+from core import FeedForward, from_csv, separate_data, noise
 from core.estimators import cv
 
 
 training, validation = separate_data(from_csv("D:\\DELETE\\Дипломмо\\output.csv"), 0.15)
+
+noise(training, from_range=(0, 3), axis=0)
+noise(training, from_range=(0, 0.1), axis=1)
 
 nn = FeedForward(learn_rate=0.05, momentum=0.00, weight_decay=0.6)
 
