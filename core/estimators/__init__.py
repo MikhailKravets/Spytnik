@@ -17,4 +17,4 @@ def cv(nn: FeedForward, data) -> float:
     for v in data:
         x, d = v[0], v[1]
         error += numpy.abs(d - nn.get(x)).sum()
-    return float(error)
+    return float(error / len(data))
