@@ -13,16 +13,16 @@ from core.estimators import cv
 
 training, validation = separate_data(from_csv("D:\\DELETE\\Дипломмо\\output.csv"), 0.15)
 
-nn = FeedForward(learn_rate=0.05, momentum=0.1, weight_decay=0.2)
+nn = FeedForward(learn_rate=0.05, momentum=0.2, weight_decay=0.7)
 
-nn += layers.Linear(6, 19)
-nn += layers.Tanh(19, 41)
-nn += layers.Tanh(41, 45)
-nn += layers.Relu(45, 45)
-nn += layers.Relu(45, 45)
-nn += layers.Relu(45, 45)
-nn += layers.Tanh(45, 25)
-nn += layers.Tanh(25, 8)
+nn += layers.Linear(6, 110)
+nn += layers.Tanh(110, 150)
+nn += layers.Tanh(150, 175)
+nn += layers.Relu(175, 175)
+nn += layers.Relu(175, 175)
+nn += layers.Relu(175, 175)
+nn += layers.Tanh(175, 50)
+nn += layers.Tanh(50, 8)
 nn += layers.Linear(8, 0)
 
 error = []
