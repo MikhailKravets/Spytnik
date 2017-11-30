@@ -64,7 +64,7 @@ class TestFeedForward(unittest.TestCase):
 
     def test_xor_by_train(self):
         error = 0.1
-        n = core.FeedForward(momentum=0.1, learn_rate=0.1)  # .create([2, 2, 1], default=layers.Tanh)
+        n = core.FeedForward(momentum=0.1, learn_rate=0.1)
 
         n += layers.Linear(2, 2)
         n += layers.Tanh(2, 1)
@@ -84,3 +84,21 @@ class TestFeedForward(unittest.TestCase):
 
         for v in s:
             print(n.get(v[0]), end='\n\n')
+
+
+class TestEstimators(unittest.TestCase):
+    def test_cv(self):
+        import core.estimators
+        n = core.FeedForward(momentum=0.1, learn_rate=0.1)
+        n += layers.Linear(2, 2)
+        n += layers.Tanh(2, 1)
+        n += layers.Linear(1, 0)
+
+        s = [
+            ([0, 0], [0]),
+            ([0, 1], [1]),
+            ([1, 0], [1]),
+            ([1, 1], [0]),
+        ]
+        error = core.estimators.cv(n, s)
+        self.assertTrue(type(error) is float)
