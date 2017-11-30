@@ -44,5 +44,5 @@ class Tanh(Layer):
 class Relu(Layer):
     def __init__(self, length, output):
         super().__init__(length, output)
-        self.a = lambda x: max(0, x)
-        self.der = lambda x: 0 if x <= 0 else 1
+        self.a = lambda x: numpy.maximum(x, 0)
+        self.der = lambda x: 1 * (x > 0)
