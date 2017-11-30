@@ -43,6 +43,19 @@ def separate_data(data, percentage: float) -> (list, list):
     return training, validation
 
 
+def noise(data, from_range=(0, 1), axis=0):
+    """
+    Add random noise to each element in data from range
+
+    :param data:
+    :param from_range:
+    :param axis:
+    """
+    for i in range(len(data)):
+        for j in range(len(data[i][axis])):
+            data[i][axis][j] += (from_range[1] - from_range[0]) * random.random() + from_range[0]
+
+
 class FeedForward:
     def __init__(self, learn_rate=0.1, momentum=0.1, weight_decay=0.1):
         """

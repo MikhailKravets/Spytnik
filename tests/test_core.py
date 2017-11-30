@@ -26,6 +26,21 @@ class TestCore(unittest.TestCase):
         ts, vs = core.separate_data(data, 0.5)
         self.assertEqual(len(ts), len(vs))
 
+    def test_noise(self):
+        data = [
+            ([0, 0, 0], [1, 1, 1]),
+            ([0, 0, 0], [1, 1, 1]),
+            ([0, 0, 0], [1, 1, 1]),
+            ([0, 0, 0], [1, 1, 1]),
+        ]
+        core.noise(data, from_range=(10, 20), axis=0)
+        for v in data:
+            self.assertTrue(v[0][0] > 10)
+        core.noise(data, from_range=(10, 20), axis=1)
+        for v in data:
+            self.assertTrue(v[1][0] > 10)
+
+
 
 class TestFeedForward(unittest.TestCase):
     def test_layers_addition(self):
