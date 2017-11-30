@@ -4,7 +4,7 @@ import random
 import numpy
 
 import layers
-from nn import FeedForward
+from core import FeedForward
 
 
 def f(x):

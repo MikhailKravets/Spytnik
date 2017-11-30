@@ -2,7 +2,7 @@ import matplotlib.pyplot as plot
 import random
 
 import layers
-from nn import FeedForward
+from core import FeedForward
 
 
 nn = FeedForward(momentum=0.1, learn_rate=0.1, weight_decay=0.2)  # .create([2, 2, 1], default=layers.Tanh)

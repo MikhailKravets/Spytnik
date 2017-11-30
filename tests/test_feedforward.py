@@ -1,11 +1,11 @@
 import unittest
-import nn, layers
+import core, layers
 import random
 
 
 class TestFeedForward(unittest.TestCase):
     def test_layers_addition(self):
-        v = nn.FeedForward()
+        v = core.FeedForward()
         v += layers.Linear(2, 3)
         v += layers.Tanh(3, 2)
         v += layers.Linear(2, 1)
@@ -14,7 +14,7 @@ class TestFeedForward(unittest.TestCase):
 
     def test_by_xor(self):
         error = 0.1
-        n = nn.FeedForward(momentum=0.1, learn_rate=0.1)  # .create([2, 2, 1], default=layers.Tanh)
+        n = core.FeedForward(momentum=0.1, learn_rate=0.1)  # .create([2, 2, 1], default=layers.Tanh)
 
         n += layers.Linear(2, 2)
         n += layers.Tanh(2, 1)

@@ -60,14 +60,10 @@ class FeedForward:
             l.y = l.a(l.v)
         return numpy.round(self.layers[-1].y, decimals=3)
 
-    def create(self, architecture, default=layers.Tanh):
+    def from_list(self, architecture, default=layers.Tanh):
         self.layers = []
-        for i in range(0, len(architecture) - 1):
-            if i == 0:
-                self.layers.append(layers.Linear(architecture[0], architecture[1]))
-            else:
-                self.layers.append(default(architecture[i], architecture[i + 1]))
-        self.layers.append(layers.Linear(architecture[-1], 0))
+        for i in range(0, len(architecture)):
+            self.layers.append(default(architecture[i], architecture[i + 1]))
         return self
 
     def __add__(self, l: layers.Layer):
