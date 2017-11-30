@@ -1,7 +1,43 @@
 import random
-
 import numpy
+import csv
+
 import layers
+
+
+def from_csv(file_name: str) -> list:
+    """
+    Load the data from specially formatted .csv file into list of tuples which contain vectors (input data
+    and desired output).
+
+    :param file_name: path to `.csv` file
+    :return:
+    """
+    data = []
+    with open(file_name, 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            x, d = list(map(lambda e: float(e), row[:row.index('-')])), \
+                   list(map(lambda e: float(e), row[row.index('-') + 1:]))
+            data.append((x, d))
+    return data
+
+
+def separate_data(data, percentage: float) -> (list, list):
+    """
+    Separate the data into training set and validation set with the given percentage
+
+    :param data: list of vectors (input data, desired output)
+    :param percentage: float value between [0, 1) which defines how much data move to validation set
+    :return: tuple of training set, validation set
+    """
+    v_len = int(percentage * len(data))
+    training, validation = data.copy(), []
+    while len(validation) < v_len:
+        r = random.randint(0, len(training) - 1)
+        validation.append(training[r])
+        del training[r]
+    return training, validation
 
 
 class FeedForward:

@@ -1,6 +1,30 @@
 import unittest
 import core, layers
 import random
+import os
+
+
+class TestCore(unittest.TestCase):
+    def test_from_csv(self):
+        with open('test.csv', 'w+') as file:
+            file.write("0,0,-,0\n")
+            file.write("1,0,-,1\n")
+            file.write("0,1,-,1\n")
+            file.write("1,1,-,0\n")
+        data = core.from_csv('test.csv')
+        self.assertEqual(len(data), 4)
+        self.assertEqual(data[0][1][0], 0)
+        os.remove('test.csv')
+
+    def test_separation(self):
+        data = [
+            ([0, 0], [0]),
+            ([1, 0], [1]),
+            ([0, 1], [1]),
+            ([1, 1], [0]),
+        ]
+        ts, vs = core.separate_data(data, 0.5)
+        self.assertEqual(len(ts), len(vs))
 
 
 class TestFeedForward(unittest.TestCase):
