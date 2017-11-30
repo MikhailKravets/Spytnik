@@ -77,6 +77,9 @@ class FeedForward:
         :param l: the layer to be added to neural network
         :return: link on the current neural network
         """
+        if l is not layers.Layer:
+            raise TypeError("The given layer is not actually 'layer.Layer' instance or its child")
+
         self.layers.append(l)
         return self
 
