@@ -33,7 +33,7 @@ class TestFeedForward(unittest.TestCase):
 
         for v in s:
             res = n.get(v[0])
-            self.assertEqual(abs(v[1][0] - res[0]) < error)
+            self.assertTrue(abs(v[1][0] - res[0]) < error)
 
         for v in s:
             print(n.get(v[0]), end='\n\n')
