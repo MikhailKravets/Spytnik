@@ -13,6 +13,7 @@ class TestFeedForward(unittest.TestCase):
         self.assertEqual(len(v.layers[1].v), 3)
 
     def test_by_xor(self):
+        error = 0.1
         n = nn.FeedForward(momentum=0.1, learn_rate=0.1)  # .create([2, 2, 1], default=layers.Tanh)
 
         n += layers.Linear(2, 2)
@@ -26,16 +27,13 @@ class TestFeedForward(unittest.TestCase):
             ([1, 1], [0]),
         ]
 
-        E = []
-
         for i in range(10_000):
             r = random.randint(0, len(s) - 1)
             n.fit(*s[r])
-            E.append(n.error)
 
         for v in s:
             res = n.get(v[0])
-            self.assertEqual(v[1][0], res[0])
+            self.assertEqual(abs(v[1][0] - res[0]) < error)
 
         for v in s:
             print(n.get(v[0]), end='\n\n')
