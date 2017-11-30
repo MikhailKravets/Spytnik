@@ -17,9 +17,12 @@ def from_csv(file_name: str) -> list:
     with open(file_name, 'r') as file:
         reader = csv.reader(file)
         for row in reader:
-            x, d = list(map(lambda e: float(e), row[:row.index('-')])), \
-                   list(map(lambda e: float(e), row[row.index('-') + 1:]))
-            data.append((x, d))
+            try:
+                x, d = list(map(lambda e: float(e), row[:row.index('-')])), \
+                       list(map(lambda e: float(e), row[row.index('-') + 1:]))
+                data.append((x, d))
+            except ValueError:
+                pass
     return data
 
 
