@@ -1,3 +1,5 @@
+import random
+
 import numpy
 import layers
 
@@ -15,7 +17,7 @@ class FeedForward:
         self.weight_decay = weight_decay
         self.error = 0
 
-    def fit(self, x: list, d: list):
+    def fit(self, x, d):
         x = numpy.array(x).reshape(len(x), 1)
         x = numpy.vstack(([1], x))
         d = numpy.array(d).reshape(len(d), 1)
@@ -23,6 +25,12 @@ class FeedForward:
         self._forward(x)
         self._backprop(d)
         self._sgd(x, d)
+
+    def train(self, data, iterations):
+        for i in range(iterations):
+            r = random.randint(0, len(data) - 1)
+            x, d = data[r][0], data[r][1]
+            self.fit(x, d)
 
     def _forward(self, x):
         for i in range(1, len(self.layers)):
@@ -73,7 +81,7 @@ class FeedForward:
         :param l: the layer to be added to neural network
         :return: link on the current neural network
         """
-        if l is not layers.Layer:
+        if type(l) is layers.Layer:
             raise TypeError("The given layer is not actually 'layer.Layer' instance or its child")
 
         self.layers.append(l)
