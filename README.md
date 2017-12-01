@@ -5,7 +5,7 @@
 [![Build status](https://travis-ci.org/MikhailKravets/Spytnik.svg?branch=master)](https://travis-ci.org/MikhailKravets/Spytnik)
 [![codecov](https://codecov.io/gh/MikhailKravets/Spytnik/branch/master/graph/badge.svg)](https://codecov.io/gh/MikhailKravets/Spytnik)
 
-Spytnik is the Python project that gathers modern deep learning algorithms, the field of experiments
+Spytnik is the Python project that gathers modern deep learning algorithms; the field of experiments
 and place for application of new knowledge.
 
 ## Usage example
@@ -32,12 +32,12 @@ Let's try to approximate very simple function `0.5*sin(e^x) - cos(e^(-x))`.
     
     
     # creating new FeedForward instance.
-    # FeedForward is our neural netrowk which we'll be training
+    # FeedForward is our neural netrowk which we'll be trained
     nn = FeedForward(momentum=0.2, learn_rate=0.05, weight_decay=0.2)
     
     # Append layers to neural networks
     # That's an interesting moment:
-    # You can combine any layers you want. There is only one contraint: input layer must
+    # You can combine any layers you want. There is only one constraint: input layer must
     # have the amount of neurons equal to input vector length; such as output layer must
     # have the amount of neurons equal to output vector length.
     #
