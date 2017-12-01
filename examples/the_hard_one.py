@@ -13,17 +13,17 @@ from core.estimators import cv
 
 training, validation = separate_data(from_csv("D:\\DELETE\\Дипломмо\\output.csv"), 0.15)
 
-noise(training, from_range=(0, 3), axis=0)
-noise(training, from_range=(-0.05, 0.1), axis=1)
+noise(training, from_range=(0, 2), axis=0)
+noise(training, from_range=(-0.05, 0.05), axis=1)
 
 nn = FeedForward(learn_rate=0.05, momentum=0.2, weight_decay=0.5)
 
 nn += layers.Linear(6, 260)
-nn += layers.Sigmoid(260, 456)
+nn += layers.Tanh(260, 456)
 nn += layers.Relu(456, 456)
+nn += layers.Tanh(456, 456)
 nn += layers.Relu(456, 456)
-nn += layers.Relu(456, 456)
-nn += layers.Relu(456, 456)
+nn += layers.Tanh(456, 456)
 nn += layers.Relu(456, 456)
 nn += layers.Relu(456, 275)
 nn += layers.Tanh(275, 50)
