@@ -100,3 +100,16 @@ Plotted charts after running of the code above should be similar to this one ↓
 <div align="center">
   <img src="https://raw.githubusercontent.com/MikhailKravets/Spytnik/master/doc/fig1.png"><br><br>
 </div>
+
+Awesome, yeah?
+
+There will be some more awesome information in the readme or even personal website but some later, wait a little.
+
+## Documentation and so on
+I will write documentation with mathematical background to it, I promise... just believe me
+
+## License
+MIT License
+
+### Attribution
+The red sputnik from logo is made by [Freepik](https://www.freepik.com/)
