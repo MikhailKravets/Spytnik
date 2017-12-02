@@ -53,7 +53,7 @@ plot.legend()
 
 plot.subplot(212)
 plot.title("Training error")
-plot.plot(error, label='Training')
+plot.plot(error, label='Training error')
 plot.plot([i * 300 for i in range(len(v_error))], v_error, label='Validation error')
 plot.legend()
 plot.show()
