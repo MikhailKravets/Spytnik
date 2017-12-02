@@ -1,4 +1,7 @@
 import unittest
+
+import numpy
+
 import core, layers
 import random
 import os
@@ -98,6 +101,25 @@ class TestFeedForward(unittest.TestCase):
 
         for v in s:
             print(n.get(v[0]), end='\n\n')
+
+
+class TestEnsemble(unittest.TestCase):
+    def test_get(self):
+        nn1 = core.FeedForward(momentum=0.1, learn_rate=0.1)
+        nn1 += layers.Linear(2, 2)
+        nn1 += layers.Tanh(2, 2)
+        nn1 += layers.Linear(2, 0)
+
+        nn2 = core.FeedForward(momentum=0.1, learn_rate=0.1)
+        nn2 += layers.Linear(2, 2)
+        nn2 += layers.Tanh(2, 2)
+        nn2 += layers.Linear(2, 0)
+
+        ensemble = core.Ensemble([nn1, nn2])
+        ensemble.fit([0, 1], [2, 1])
+
+        stack = numpy.vstack((nn1.get([0, 0]), nn2.get([0, 0])))
+        self.assertEqual(ensemble.get([0, 0])[0], (stack.sum(axis=0) / len(stack))[0])
 
 
 class TestEstimators(unittest.TestCase):

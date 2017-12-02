@@ -60,8 +60,6 @@ class FeedForward:
     def __init__(self, learn_rate=0.1, momentum=0.1, weight_decay=0.1):
         """
         Create new `FeedForward` NN instance. By default it will append Sigmoid layers
-
-        :param architecture: list of neuron amounts in each layer
         """
         self.layers = []
         self.learn_rate = learn_rate
@@ -118,7 +116,7 @@ class FeedForward:
                 x_ = numpy.vstack(([1], l_prev.y))
             l.v = l_prev.w.T.dot(x_)
             l.y = l.a(l.v)
-        return numpy.round(self.layers[-1].y, decimals=3)
+        return numpy.round(self.layers[-1].y, decimals=3).T[0]
 
     def from_list(self, architecture, default=layers.Tanh):
         self.layers = []
@@ -144,3 +142,25 @@ class FeedForward:
         for l in self.layers:
             s += f"v:\n{l.v}\n\ny:\n{l.y}\n\ndelta:\n{l.delta}\n\nw:\n{l.w}\n\n------------------------------\n"
         return s
+
+
+class Ensemble:
+    def __init__(self, experts: list):
+        self.experts = experts
+
+    def fit(self, x, d):
+        for exp in self.experts:
+            exp.fit(x, d)
+
+    def train(self, data, iterations):
+        for exp in self.experts:
+            exp.train(data, iterations)
+
+    def get(self, x):
+        responses = None
+        for exp in self.experts:
+            if responses is None:
+                responses = exp.get(x)
+            else:
+                responses = numpy.vstack((responses, exp.get(x)))
+        return responses.sum(axis=0) / len(responses)
