@@ -41,7 +41,6 @@ class TestCore(unittest.TestCase):
             self.assertTrue(v[1][0] > 10)
 
 
-
 class TestFeedForward(unittest.TestCase):
     def test_layers_addition(self):
         v = core.FeedForward()

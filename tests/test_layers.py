@@ -1,5 +1,6 @@
 import unittest
 import layers
+import core
 
 
 class TestLayers(unittest.TestCase):
@@ -25,9 +26,37 @@ class TestLayers(unittest.TestCase):
         self.assertEqual(l.der(23), 1)
         self.assertEqual(l.der(-3), 0)
 
-    def test_dropout(self):
-        l = layers.Dropout(layers.Linear(3, 2))
-        self.assertEqual(l.length, 3)
-        self.assertEqual(l.output, 2)
-        self.assertEqual(l.a(2), 2)
-        self.assertEqual(l.der(10), 1)
+    def test_dropout_drop(self):
+        l = layers.Dropout(layers.Linear(10, 6), percentage=0.5)
+        zeros = 0
+        for row in l.D:
+            if row[0] == 0:
+                zeros += 1
+
+        self.assertEqual(zeros, len(l.D) // 2)
+
+    def test_dropout_after_training(self):
+        n = core.FeedForward(momentum=0.1, learn_rate=0.1)
+        drop = layers.Dropout(layers.Tanh(2, 1), percentage=0.5)
+        n += layers.Linear(2, 2)
+        n += drop
+        n += layers.Linear(1, 0)
+
+        s = [
+            ([0, 0], [0]),
+            ([0, 1], [1]),
+            ([1, 0], [1]),
+            ([1, 1], [0]),
+        ]
+
+        n.fit(*s[1])
+        n.fit(*s[0])
+        n.fit(*s[2])
+        n.fit(*s[0])
+        n.fit(*s[1])
+
+        zeros = 0
+        for row in drop.y:
+            if row[0] == 0:
+                zeros += 1
+        self.assertEqual(zeros, len(drop.w) // 2)
