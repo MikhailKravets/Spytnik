@@ -46,3 +46,7 @@ class Relu(Layer):
         super().__init__(length, output)
         self.a = lambda x: numpy.maximum(x, 0)
         self.der = lambda x: 1 * (x > 0)
+
+
+class Dropout(Layer):
+    pass
