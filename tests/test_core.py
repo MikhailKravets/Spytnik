@@ -115,7 +115,7 @@ class TestEnsemble(unittest.TestCase):
         nn2 += layers.Tanh(2, 2)
         nn2 += layers.Linear(2, 0)
 
-        ensemble = core.Ensemble([nn1, nn2])
+        ensemble = core.Ensemble(nn1, nn2)
         ensemble.fit([0, 1], [2, 1])
 
         stack = numpy.vstack((nn1.get([0, 0]), nn2.get([0, 0])))
