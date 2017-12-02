@@ -7,6 +7,7 @@ import math
 
 class Layer:
     def __init__(self, length, output):
+        self.length, self.output = length, output
         self.v = numpy.zeros(shape=(length, 1))
         self.y = numpy.zeros(shape=(length, 1))
         self.delta = numpy.zeros(shape=(length, 1))
@@ -49,4 +50,8 @@ class Relu(Layer):
 
 
 class Dropout(Layer):
-    pass
+    def __init__(self, layer: Layer, percentage=0.15):
+        super().__init__(layer.length, layer.output)
+        self.percentage = percentage
+        self.a = layer.a
+        self.der = layer.der
