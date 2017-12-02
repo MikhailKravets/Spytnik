@@ -147,6 +147,7 @@ class FeedForward:
 class Ensemble:
     def __init__(self, experts: list):
         self.experts = experts
+        self.error = 0
 
     def fit(self, x, d):
         for exp in self.experts:
@@ -158,9 +159,12 @@ class Ensemble:
 
     def get(self, x):
         responses = None
+        self.error = 0
         for exp in self.experts:
             if responses is None:
                 responses = exp.get(x)
             else:
                 responses = numpy.vstack((responses, exp.get(x)))
+            self.error += exp.error
+        self.error /= len(self.experts)
         return responses.sum(axis=0) / len(responses)
