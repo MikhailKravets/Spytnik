@@ -47,11 +47,13 @@ for v in x:
 
 plot.subplot(211)
 plot.title("f(x) and its approximation")
-plot.plot(x, y)
-plot.plot(x, y_trained)
+plot.plot(x, y, label='f(x)')
+plot.plot(x, y_trained, label="NN's approximation")
+plot.legend()
 
 plot.subplot(212)
-plot.title("Learning error")
-plot.plot(error)
-plot.plot([i * 300 for i in range(len(v_error))], v_error)
+plot.title("Training error")
+plot.plot(error, label='Training')
+plot.plot([i * 300 for i in range(len(v_error))], v_error, label='Validation error')
+plot.legend()
 plot.show()
