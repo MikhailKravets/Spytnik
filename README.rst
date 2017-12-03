@@ -15,8 +15,7 @@ Usage example
 
 Let's try to approximate very simple function `0.5*sin(e^x) - cos(e^(-x))`.
 
-.. code-block::python
-    :linenos:
+.. code:: python
 
     # import all we need
     import matplotlib.pyplot as plot
