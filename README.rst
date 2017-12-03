@@ -4,8 +4,11 @@
       <img src="https://raw.githubusercontent.com/MikhailKravets/Spytnik/master/logo.jpg"><br><br>
     </div>
 
-[![Build status](https://travis-ci.org/MikhailKravets/Spytnik.svg?branch=master)](https://travis-ci.org/MikhailKravets/Spytnik)
-[![codecov](https://codecov.io/gh/MikhailKravets/Spytnik/branch/master/graph/badge.svg)](https://codecov.io/gh/MikhailKravets/Spytnik)
+.. image:: https://travis-ci.org/MikhailKravets/Spytnik.svg?branch=master
+    :target: https://travis-ci.org/MikhailKravets/Spytnik
+
+.. image:: https://codecov.io/gh/MikhailKravets/Spytnik/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/MikhailKravets/Spytnik
 
 Spytnik is the Python project that gathers modern deep learning algorithms; the field of experiments
 and place for application of new knowledge.
