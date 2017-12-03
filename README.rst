@@ -122,4 +122,4 @@ MIT License
 
 Attribution
 ***********
-The red sputnik from logo is made by 'Freepik <https://www.freepik.com/>'_
+The red sputnik from logo is made by `Freepik <https://www.freepik.com/>`_
