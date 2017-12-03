@@ -1,6 +1,8 @@
-<div align="center">
-  <img src="https://raw.githubusercontent.com/MikhailKravets/Spytnik/master/logo.jpg"><br><br>
-</div>
+.. raw:: html
+
+    <div align="center">
+      <img src="https://raw.githubusercontent.com/MikhailKravets/Spytnik/master/logo.jpg"><br><br>
+    </div>
 
 [![Build status](https://travis-ci.org/MikhailKravets/Spytnik.svg?branch=master)](https://travis-ci.org/MikhailKravets/Spytnik)
 [![codecov](https://codecov.io/gh/MikhailKravets/Spytnik/branch/master/graph/badge.svg)](https://codecov.io/gh/MikhailKravets/Spytnik)
@@ -8,11 +10,13 @@
 Spytnik is the Python project that gathers modern deep learning algorithms; the field of experiments
 and place for application of new knowledge.
 
-## Usage example
+Usage example
+*************
 
 Let's try to approximate very simple function `0.5*sin(e^x) - cos(e^(-x))`.
 
-```python
+.. code-block:: python
+    :linenos:
 
     # import all we need
     import matplotlib.pyplot as plot
@@ -93,23 +97,27 @@ Let's try to approximate very simple function `0.5*sin(e^x) - cos(e^(-x))`.
     plot.plot(error)
     plot.plot([i * 300 for i in range(len(v_error))], v_error)
     plot.show()
-```
 
 Plotted charts after running of the code above should be similar to this one ↓
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/MikhailKravets/Spytnik/master/doc/fig1.png"><br><br>
-</div>
+.. raw:: html
+
+    <div align="center">
+      <img src="https://raw.githubusercontent.com/MikhailKravets/Spytnik/master/doc/fig1.png"><br><br>
+    </div>
 
 Awesome, yeah?
 
 There will be some more awesome information in the readme or even personal website but some later, wait a little.
 
-## Documentation and so on
+Documentation and so on
+***********************
 I will write documentation with mathematical background to it, I promise... just believe me
 
-## License
+License
+*******
 MIT License
 
-### Attribution
+Attribution
+***********
 The red sputnik from logo is made by [Freepik](https://www.freepik.com/)
