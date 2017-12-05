@@ -1,6 +1,6 @@
 import unittest
-import spytnik.layers as layers
-import spytnik.core as core
+import layers
+import core
 
 
 class TestLayers(unittest.TestCase):

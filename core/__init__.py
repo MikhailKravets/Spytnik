@@ -2,7 +2,7 @@ import random
 import numpy
 import csv
 
-import spytnik.layers
+import layers
 
 
 def from_csv(file_name: str) -> list:
