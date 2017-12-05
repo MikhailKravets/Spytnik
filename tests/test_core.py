@@ -2,7 +2,7 @@ import unittest
 
 import numpy
 
-import core, layers
+import spytnik.core as core, spytnik.layers as layers
 import random
 import os
 
