@@ -167,4 +167,4 @@ class Ensemble:
                 responses = exp.get(x)
             else:
                 responses = numpy.vstack((responses, exp.get(x)))
-        return responses.sum(axis=0) / len(responses)
+        return numpy.round(responses.sum(axis=0) / len(responses), decimals=3)
