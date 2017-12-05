@@ -13,6 +13,21 @@
 Spytnik is the Python project that gathers modern deep learning algorithms; the field of experiments
 and place for application of new knowledge.
 
+Installation
+************
+
+Clone (download) the project and run the following command
+
+.. code::
+
+    python setup.py install
+
+Then you can import the project
+
+.. code:: python
+
+    import spytnik
+
 Usage example
 *************
 
