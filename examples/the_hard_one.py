@@ -20,8 +20,8 @@ def normal(arr):
 
 training, validation = separate_data(from_csv("D:\\DELETE\\Дипломмо\\output.csv"), 0.15)
 
-noise(training, from_range=(0, 2), axis=0)
-noise(training, from_range=(-0.05, 0.05), axis=1)
+# noise(training, from_range=(0, 2), axis=0)
+# noise(training, from_range=(-0.05, 0.05), axis=1)
 
 ff1 = FeedForward(learn_rate=0.05, momentum=0.2, weight_decay=0.5)
 ff1 += layers.Linear(6, 23)
@@ -51,8 +51,8 @@ ensemble = Ensemble(ff1, ff2, ff3)
 
 test = (
     [10, 12, 11, 0, 0, 1],
-    [10, 12, 0, 0, 0, 1],
-    [25, 10, 0, 0, 6, 11],
+    [12, 12, 0, 0, 0, 1],
+    [7, 0, 0, 10, 6, 11],
 )
 
 error = []
