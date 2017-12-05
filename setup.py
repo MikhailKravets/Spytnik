@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 
 setup(
@@ -24,5 +24,6 @@ setup(
         "Topic :: Scientific/Engineering :: Mathematics"
     ],
     keywords="deep-learning neural-networks research science",
-    python_requires=">=3.6"
+    python_requires=">=3.6",
+    packages=find_packages()
 )
