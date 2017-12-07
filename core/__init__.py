@@ -84,10 +84,12 @@ class FeedForward:
             self.fit(x, d)
 
     def _forward(self, x):
-        for i in range(0, len(self.layers)):
+        l = self.layers[0]
+        l.v = l.w.T.dot(x)
+        l.y = l.a(l.v)
+        for i in range(1, len(self.layers)):
             l, l_prev = self.layers[i], self.layers[i - 1]
-            if i > 0:
-                x = numpy.vstack(([1], l_prev.y))
+            x = numpy.vstack(([1], l_prev.y))
             l.v = l.w.T.dot(x)
             l.y = l.a(l.v)
 
@@ -125,7 +127,7 @@ class FeedForward:
                 x_ = numpy.vstack(([1], l_prev.y))
             l.v = l.w.T.dot(x_)
             l.y = l.a(l.v)
-        return numpy.round(self.layers[-1].y, decimals=3).T[0]
+        return numpy.round(self.layers[-1].y, decimals=3).T
 
     def from_list(self, architecture, default=layers.Tanh):
         self.layers = []
