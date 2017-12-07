@@ -14,13 +14,14 @@ def f(x):
 
 nn = FeedForward(momentum=0.2, learn_rate=0.05, weight_decay=0.2)  # .create([2, 2, 1], default=layers.Tanh)
 
-nn += layers.Linear(1, 10)
+nn += layers.Input(1, 10)
 
 nn += layers.Tanh(10, 10)
 nn += layers.Tanh(10, 10)
-nn += layers.Tanh(10, 1)
+nn += layers.Tanh(10, 10)
+nn += layers.Tanh(10, 10)
 
-nn += layers.Linear(1, 0)
+nn += layers.Input(10, 1)
 
 data = [([x], [f(x)]) for x in numpy.linspace(-2.2, 2.5, 150)]
 ts, vs = separate_data(data, 0.15)

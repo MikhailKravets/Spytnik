@@ -23,6 +23,14 @@ class Layer:
         self.der = None
 
 
+class Input(Layer):
+    def __init__(self, input_len, output_len):
+        super().__init__(input_len, output_len)
+        self.w = numpy.ones(shape=(input_len + 1, output_len))
+        self.a = lambda x: x
+        self.der = lambda x: 1
+
+
 class Linear(Layer):
     def __init__(self, input_len, output_len):
         super().__init__(input_len, output_len)
