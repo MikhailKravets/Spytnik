@@ -15,7 +15,7 @@ from core.estimators import cv
 
 def normal(arr):
     s = numpy.sum(numpy.abs(arr))
-    return numpy.abs(arr) / s
+    return numpy.round(numpy.abs(arr) / s, decimals=2)
 
 
 training, validation = separate_data(from_csv("D:\\DELETE\\Дипломмо\\output.csv"), 0.15)
@@ -24,35 +24,35 @@ training, validation = separate_data(from_csv("D:\\DELETE\\Дипломмо\\out
 # noise(training, from_range=(-0.05, 0.05), axis=1)
 
 ff1 = FeedForward(learn_rate=0.05, momentum=0.2, weight_decay=0.5)
-ff1 += layers.Linear(6, 23)
+ff1 += layers.Tanh(6, 23)
 ff1 += layers.Dropout(layers.Tanh(23, 28), percentage=0.3)
 ff1 += layers.Dropout(layers.Tanh(28, 28), percentage=0.3)
 ff1 += layers.Dropout(layers.Tanh(28, 28), percentage=0.3)
-ff1 += layers.Dropout(layers.Tanh(28, 8), percentage=0.3)
-ff1 += layers.Linear(8, 0)
+ff1 += layers.Dropout(layers.Tanh(28, 28), percentage=0.3)
+ff1 += layers.Linear(28, 8)
 
 ff2 = FeedForward(learn_rate=0.07, momentum=0.2, weight_decay=0.23)
-ff2 += layers.Linear(6, 23)
-ff2 += layers.Dropout(layers.Sigmoid(23, 28), percentage=0.3)
-ff2 += layers.Dropout(layers.Sigmoid(28, 28), percentage=0.3)
-ff2 += layers.Dropout(layers.Sigmoid(28, 28), percentage=0.3)
-ff2 += layers.Dropout(layers.Sigmoid(28, 8), percentage=0.3)
-ff2 += layers.Linear(8, 0)
+ff2 += layers.Tanh(6, 23)
+ff2 += layers.Dropout(layers.Tanh(23, 28), percentage=0.3)
+ff2 += layers.Dropout(layers.Tanh(28, 28), percentage=0.3)
+ff2 += layers.Dropout(layers.Tanh(28, 28), percentage=0.3)
+ff2 += layers.Dropout(layers.Tanh(28, 28), percentage=0.3)
+ff2 += layers.Linear(28, 8)
 
 ff3 = FeedForward(learn_rate=0.04, momentum=0.6, weight_decay=0.4)
-ff3 += layers.Linear(6, 23)
+ff3 += layers.Tanh(6, 23)
 ff3 += layers.Dropout(layers.Sigmoid(23, 28), percentage=0.3)
 ff3 += layers.Dropout(layers.Sigmoid(28, 28), percentage=0.3)
 ff3 += layers.Dropout(layers.Sigmoid(28, 28), percentage=0.3)
-ff3 += layers.Dropout(layers.Sigmoid(28, 8), percentage=0.3)
-ff3 += layers.Linear(8, 0)
+ff3 += layers.Dropout(layers.Sigmoid(28, 28), percentage=0.3)
+ff3 += layers.Linear(28, 8)
 
-ensemble = Ensemble(ff1, ff2, ff3)
+ensemble = Ensemble(ff1)
 
 test = (
-    [10, 12, 11, 0, 0, 1],
-    [12, 12, 0, 0, 0, 1],
-    [7, 0, 0, 10, 6, 11],
+    [10, 12, 0, 0, 3, 17],
+    [5, 8, 0, 0, 5, 21],
+    [10, 0, 15, 0, 6, 11],
 )
 
 error = []

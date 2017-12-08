@@ -51,15 +51,14 @@ class TestFeedForward(unittest.TestCase):
         v += layers.Tanh(3, 2)
         v += layers.Linear(2, 1)
         self.assertEqual(len(v.layers), 3)
-        self.assertEqual(len(v.layers[1].v), 3)
+        self.assertEqual(len(v.layers[1].v), 2)
 
     def test_by_xor(self):
         error = 0.1
         n = core.FeedForward(momentum=0.1, learn_rate=0.1)  # .create([2, 2, 1], default=layers.Tanh)
 
-        n += layers.Linear(2, 2)
-        n += layers.Tanh(2, 1)
-        n += layers.Linear(1, 0)
+        n += layers.Tanh(2, 2)
+        n += layers.Linear(2, 1)
 
         s = [
             ([0, 0], [0]),
@@ -83,9 +82,8 @@ class TestFeedForward(unittest.TestCase):
         error = 0.1
         n = core.FeedForward(momentum=0.1, learn_rate=0.1)
 
-        n += layers.Linear(2, 2)
-        n += layers.Tanh(2, 1)
-        n += layers.Linear(1, 0)
+        n += layers.Tanh(2, 2)
+        n += layers.Linear(2, 1)
 
         s = [
             ([0, 0], [0]),
@@ -106,20 +104,18 @@ class TestFeedForward(unittest.TestCase):
 class TestEnsemble(unittest.TestCase):
     def test_get(self):
         nn1 = core.FeedForward(momentum=0.1, learn_rate=0.1)
-        nn1 += layers.Linear(2, 2)
         nn1 += layers.Tanh(2, 2)
-        nn1 += layers.Linear(2, 0)
+        nn1 += layers.Linear(2, 2)
 
         nn2 = core.FeedForward(momentum=0.1, learn_rate=0.1)
-        nn2 += layers.Linear(2, 2)
         nn2 += layers.Tanh(2, 2)
-        nn2 += layers.Linear(2, 0)
+        nn2 += layers.Linear(2, 2)
 
         ensemble = core.Ensemble(nn1, nn2)
         ensemble.fit([0, 1], [2, 1])
 
         stack = numpy.vstack((nn1.get([0, 0]), nn2.get([0, 0])))
-        self.assertEqual(ensemble.get([0, 0])[0], (stack.sum(axis=0) / len(stack))[0])
+        self.assertEqual(round(ensemble.get([0, 0])[0] * 1000), round((stack.sum(axis=0) / len(stack))[0] * 1000))
 
 
 class TestEstimators(unittest.TestCase):
