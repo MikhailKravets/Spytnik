@@ -58,20 +58,21 @@ Let's try to approximate very simple function `0.5*sin(e^x) - cos(e^(-x))`.
     
     # Append layers to neural networks
     # That's an interesting moment:
-    # You can combine any layers you want. There is only one constraint: input layer must
-    # have the amount of neurons equal to input vector length; such as output layer must
+    # You can combine any layers you want. There is only one constraint: the first layer must
+    # have the amount of input vector equal to input vector length; such as output layer must
     # have the amount of neurons equal to output vector length.
     #
-    # Such way, here we create one linear input layer (arguments (1, 10) means that the layer contains
-    # 1 layer and 10 synapsis are outputed from the each neuron in layer);
+    # Such way, here we create input layer (arguments (1, 10) means that the layer contains
+    # input vector of length 1 to each neuron  and 10 synapsis are outputed from the each neuron in layer);
     #
-    # three hidden layer with Tanh activation function;
+    # four hidden layers with Tanh activation function;
     # and one linear output layer 
-    nn += layers.Linear(1, 10)
+    nn += layers.Tanh(1, 10)
     nn += layers.Tanh(10, 10)
     nn += layers.Tanh(10, 10)
-    nn += layers.Tanh(10, 1)
-    nn += layers.Linear(1, 0)
+    nn += layers.Tanh(10, 10)
+
+    nn += layers.Linear(10, 1)
     
     # generate input data and desired output to this data
     data = [([x], [f(x)]) for x in numpy.linspace(-2.2, 2.5, 150)]
