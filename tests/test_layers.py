@@ -37,10 +37,10 @@ class TestLayers(unittest.TestCase):
 
     def test_dropout_after_training(self):
         n = core.FeedForward(momentum=0.1, learn_rate=0.1)
-        drop = layers.Dropout(layers.Tanh(2, 1), percentage=0.5)
+        drop = layers.Dropout(layers.Tanh(2, 2), percentage=0.5)
         n += layers.Linear(2, 2)
         n += drop
-        n += layers.Linear(1, 0)
+        n += layers.Linear(2, 1)
 
         s = [
             ([0, 0], [0]),
