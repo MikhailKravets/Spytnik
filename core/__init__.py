@@ -57,7 +57,7 @@ def noise(data, from_range=(0, 1), axis=0):
 
 
 class FeedForward:
-    def __init__(self, learn_rate=0.1, momentum=0.1, weight_decay=0.1):
+    def __init__(self, learn_rate=0.1, momentum=0.1, weight_decay=0.1, batch_size=4):
         """
         Create new `FeedForward` NN instance. By default it will append Sigmoid layers
         """
@@ -65,6 +65,7 @@ class FeedForward:
         self.learn_rate = learn_rate
         self.momentum = momentum
         self.weight_decay = weight_decay
+        self.batch_size = batch_size
         self.error = 0
 
     def fit(self, x, d):
@@ -78,9 +79,10 @@ class FeedForward:
 
     def train(self, data, iterations):
         for i in range(iterations):
-            r = random.randint(0, len(data) - 1)
-            x, d = data[r][0], data[r][1]
-            self.fit(x, d)
+            new = data.copy()
+            random.shuffle(new)
+            x, d = numpy.array([v[0] for v in new]), numpy.array([v[1] for v in new])
+            print(x, d)
 
     def _forward(self, x):
         for i in range(1, len(self.layers)):
