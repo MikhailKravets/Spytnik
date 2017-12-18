@@ -78,10 +78,13 @@ class FeedForward:
         self._sgd(x, d)
 
     def train(self, data, iterations):
+        print(data)
         for i in range(iterations):
-            r = random.randint(0, len(data) - 1)
-            x, d = data[r][0], data[r][1]
-            self.fit(x, d)
+            new = data.copy()
+            random.shuffle(new)
+            for batch in self._mini_batch(data):
+                x, d = batch[0], batch[1]
+                self.fit(x, d)
 
     def _forward(self, x):
         l = self.layers[0]
@@ -112,11 +115,11 @@ class FeedForward:
             l.w += l.velocity
 
     def _mini_batch(self, data):
-        seq = random.sample(range(0, len(data)), self.batch_size if self.batch_size < len(data) else len(data))
-        b_data = []
-        for r in seq:
-            b_data.append(data[r])
-        return b_data
+        for i in range(0, len(data), self.batch_size):
+            if len(data) < i + self.batch_size:
+                yield data[i:i + self.batch_size]
+            else:
+                yield data[i:]
 
     def get(self, x):
         x_ = numpy.array(x).reshape(len(x), 1)
