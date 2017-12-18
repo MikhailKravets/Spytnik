@@ -29,7 +29,7 @@ ff1 += layers.Dropout(layers.Tanh(23, 28), percentage=0.3)
 ff1 += layers.Dropout(layers.Tanh(28, 28), percentage=0.3)
 ff1 += layers.Dropout(layers.Tanh(28, 28), percentage=0.3)
 ff1 += layers.Dropout(layers.Tanh(28, 28), percentage=0.3)
-ff1 += layers.Linear(28, 8)
+ff1 += layers.Linear(28, 7)
 
 ff2 = FeedForward(learn_rate=0.07, momentum=0.2, weight_decay=0.23)
 ff2 += layers.Tanh(6, 23)
@@ -37,7 +37,7 @@ ff2 += layers.Dropout(layers.Tanh(23, 28), percentage=0.3)
 ff2 += layers.Dropout(layers.Tanh(28, 28), percentage=0.3)
 ff2 += layers.Dropout(layers.Tanh(28, 28), percentage=0.3)
 ff2 += layers.Dropout(layers.Tanh(28, 28), percentage=0.3)
-ff2 += layers.Linear(28, 8)
+ff2 += layers.Linear(28, 7)
 
 ff3 = FeedForward(learn_rate=0.04, momentum=0.6, weight_decay=0.4)
 ff3 += layers.Tanh(6, 23)
@@ -45,9 +45,9 @@ ff3 += layers.Dropout(layers.Sigmoid(23, 28), percentage=0.3)
 ff3 += layers.Dropout(layers.Sigmoid(28, 28), percentage=0.3)
 ff3 += layers.Dropout(layers.Sigmoid(28, 28), percentage=0.3)
 ff3 += layers.Dropout(layers.Sigmoid(28, 28), percentage=0.3)
-ff3 += layers.Linear(28, 8)
+ff3 += layers.Linear(28, 7)
 
-ensemble = Ensemble(ff1)
+ensemble = Ensemble(ff1, ff2, ff3)
 
 test = (
     [10, 12, 0, 0, 3, 17],
